@@ -1,6 +1,6 @@
 ## Description
 
-[Next.js](https://nextjs.org/) Web App with [Context API](https://pt-br.reactjs.org/docs/context.html) and [Chakra UI](https://chakra-ui.com/) accessing API RestFULL by [Axios](https://axios-http.com/)   
+[Next.js](https://nextjs.org/) Web App with [Context API](https://pt-br.reactjs.org/docs/context.html) and [Chakra UI](https://chakra-ui.com/) accessing API RestFULL by [Axios](https://axios-http.com/) and [Docker](https://www.docker.com/)   
 
 ## Live in Vercel   
 
