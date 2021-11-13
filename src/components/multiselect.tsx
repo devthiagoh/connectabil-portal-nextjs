@@ -23,16 +23,11 @@ export const MultiSelect = ({job, name, error = null}) => {
             setOptions(options);
         });
 
-        loadJobCompanies();
-    }, []);
-    
-    const loadJobCompanies = async () => {
-        const promise = job?.companies?.map( async company => {
-            await selectedCompanies.push({ value: company._id, label: company.name });
+        job?.companies?.map(company => {
+            selectedCompanies.push({ value: company._id, label: company.name });
         });
-    
-        await Promise?.all(promise);
-    }
+
+    }, []);
     
     const onChange = (selectedOptions: OnChangeValue<any, true>) => {
         let selecteds = [];

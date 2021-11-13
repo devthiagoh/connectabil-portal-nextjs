@@ -13,9 +13,10 @@ https://nextjs-chakra-ui-taupe.vercel.app/
 sudo docker build . -t nextjs-chakra-ui
 ```
 
-## Installation the app outside of Docker   
+## Installation and Running the app outside of Docker   
 
 ```
+$ yarn install
 $ yarn dev
 ```
 ## Test in local   
