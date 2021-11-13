@@ -156,7 +156,7 @@ export const ModalCompanyForm = ({isOpen, onClose}) => {
                 <ModalContent>
                     <ModalBody>
                         <Center h="100%">
-                            <VStack marginY="3rem" as="form" w="80%" onSubmit={ company?._id ? handleUpdate : handleCreate}>
+                            <VStack marginY="3rem" as="form" w="80%" onSubmit={ id ? handleUpdate : handleCreate}>
 
                                 <Text fontSize="32px" fontWeight="bold" alignSelf="flex-start" letterSpacing="1.2px" mb="2">{label}</Text><ModalCloseButton/>
 
