@@ -1,0 +1,80 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.chakra-switch__track[data-checked]{
+  background: var(--chakra-colors-blue-550) !important;
+}
+
+.chakra-switch__track[data-focus] {
+  box-shadow: none !important;
+}
+
+.chakra-modal__close-btn {
+  margin-top: 3.2rem !important;
+  margin-right: 6rem;
+  -webkit-margin-end: 3rem !important;
+  margin-inline-end: 3rem !important;
+}
+
+.chakra-modal__close-btn:focus {
+  box-shadow: none !important;
+}
+
+.css-onkibi {
+  color: var(--chakra-colors-blue-550) !important;
+}
+
+.chakra-modal__content {
+  border-radius: var(--chakra-radii-xl) !important;
+}
+
+.chakra-tabs__tab{
+  font-weight: bold;
+}
+
+.chakra-tabs__tab[aria-selected=true]{
+  border-bottom: 4px solid;
+  color: var(--chakra-colors-blue-550) !important;  
+}
+
+.chakra-tabs__tab[data-selected]{
+  border-bottom: 4px solid;
+  color: var(--chakra-colors-blue-550);  
+}
+
+.chakra-tabs__tab[data-focus]{
+  box-shadow: none !important;  
+}
+
+.chakra-tabs__tab:focus{
+  box-shadow: none !important;  
+}
+
+.chakra-link:hover {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+}
+
+.select__control {
+  border-radius: var(--chakra-radii-xl) !important;
+}
+
+@media (max-width: 1380px){
+  .chakra-box__box {
+    width: 100%;
+  }
+}
