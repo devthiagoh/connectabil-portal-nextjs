@@ -9,6 +9,8 @@ type ContextType = {
   isOpen: any;
   onOpen: any;
   onClose: any;
+  erros: any;
+  setErros: any;
   label: string;
   setLabel: any;
   jobs: any;
@@ -34,6 +36,8 @@ const defaultValues: ContextType = {
   isOpen: null,
   onOpen: null,
   onClose: null,
+  erros: null, 
+  setErros: () => {},
   label: null,
   setLabel: () => {},
   jobs: null,
@@ -68,6 +72,7 @@ export function JobsProvider({ children }: Props) {
     
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [ erros, setErros ] = useState(null);
 
   const [ label, setLabel ] = useState(null);
   const [ jobs, setJobs ] = useState(null);
@@ -84,6 +89,8 @@ export function JobsProvider({ children }: Props) {
     isOpen,
     onOpen,
     onClose,
+    erros,
+    setErros,
     label,
     setLabel,
     jobs,

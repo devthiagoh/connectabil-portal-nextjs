@@ -1,62 +1,63 @@
-import { Center, VStack, Text, Button, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, Select } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Button, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Text, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 import { useJobs } from "../../context/jobs.context";
 import { InputForm } from "../input";
 import { MultiSelect } from "../multiselect";
 import { RadioForm } from "../radio";
 import { TextAreaForm } from "../textarea";
-
 import api from "../../services/api";
+
 
 export const ModalJobForm = ({isOpen, onClose}) => {
 
-    const {
-        toast,
-        label,
-        job,
-        jobs,
-        setJobs,
-        id,
-        setId,
-        name,
-        setName,
-        description,
-        setDescription,
-        type,
-        setType,
-        companies,
-        setCompanies
-    } = useJobs();
+    const { toast,
+            erros,
+            setErros, 
+            label, 
+            job, 
+            jobs, 
+            setJobs, 
+            id, 
+            setId, 
+            name, 
+            setName, 
+            description, 
+            setDescription, 
+            type, 
+            setType, 
+            companies, 
+            setCompanies, 
+            status } = useJobs();
 
-    const [ erros, setErros ] = useState({name: null, description: null, type: null, companies: null});
+    
     const [ loading, isLoading ] = useState(false);
 
-    const handleChangeName = (value) => { setName(value) };
-    const handleChangeDescription = (value) => { setDescription(value) };
+    const handleChangeName = (value) => { setName(value); setErros(null) };
+    const handleChangeDescription = (value) => { setDescription(value); setErros(null) };
 
     const isValidForm = () => {
 
         if(!name) {
-            setErros({name: 'Nome é obrigatório.', description: null, type: null, companies: null});
+            setErros({name: 'Nome é obrigatório.'});
             return false;
         }
 
         if(!description){
-            setErros({name: null, description: 'Descrição é obrigatório.', type: null, companies: null});
+            setErros({description: 'Descrição é obrigatório.'});
             return false;
         }
 
         if(!type){
-            setErros({name: null, description: null, type: 'Tipo de Contratação é obrigatório.', companies: null});
+            setErros({type: 'Tipo de Contratação é obrigatório.'});
             return false;
         }
 
         if(!companies){
-            setErros({name: null, description: null, type: null, companies: 'Associar uma empresa é obrigatório.'});
+            setErros({companies: 'Associar uma empresa é obrigatório.'});
             return false;
         }
 
-        setErros({name: null, description: null, type: null, companies: null});
+        setErros(null);
         return true;
     }
 
@@ -70,7 +71,8 @@ export const ModalJobForm = ({isOpen, onClose}) => {
 
         try {
             isLoading(true);
-            const { data } = await api.post('/job', {name, description, type, companies, status: true});
+            const create = {name, description, type, companies, status: true};
+            const { data } = await api.post('/job', create);
             setJobs(jobs.concat(data.job));  
             clear();
             isLoading(false);
@@ -98,8 +100,9 @@ export const ModalJobForm = ({isOpen, onClose}) => {
 
         try {
             isLoading(true);
-            await api.put(`/job`, {_id: id, name, description, type, companies});
-            setJobs(jobs.map(job => job._id === id ? {_id: id, name, description, type, companies} : job));
+            const update = {_id: id, name, description, type, companies, status};
+            const { data } = await api.put(`/job`, update);
+            setJobs(jobs.map(job => job._id === id ? data.job : job));
             clear();
             isLoading(false);
             toast({
@@ -135,12 +138,12 @@ export const ModalJobForm = ({isOpen, onClose}) => {
 
                                 <Text fontSize="32px" fontWeight="bold" alignSelf="flex-start" letterSpacing="1.2px" mb="2">{label}</Text><ModalCloseButton/>
 
-                                <InputForm name="name" label="Nome da Vaga" placeholder="Qual o nome da sua vaga?" value={name} onChange={e => handleChangeName(e.target.value)} error={erros.name}></InputForm>
-                                <TextAreaForm name="descricao" label="Descrição da Vaga" placeholder="Descreva brevemente a vaga" value={description} onChange={e => handleChangeDescription(e.target.value)} error={erros.description}></TextAreaForm>
+                                <InputForm name="name" label="Nome da Vaga" placeholder="Qual o nome da sua vaga?" value={name} onChange={e => handleChangeName(e.target.value)} error={erros?.name}></InputForm>
+                                <TextAreaForm name="descricao" label="Descrição da Vaga" placeholder="Descreva brevemente a vaga" value={description} onChange={e => handleChangeDescription(e.target.value)} error={erros?.description}></TextAreaForm>
 
-                                <RadioForm name="type" label="Tipo de contratação" error={erros.type}></RadioForm>
+                                <RadioForm name="type" label="Tipo de contratação" error={erros?.type}></RadioForm>
 
-                                <MultiSelect name="companies" job={job} error={erros.companies}></MultiSelect>
+                                <MultiSelect name="companies" job={job} error={erros?.companies}></MultiSelect>
 
                                 <Button type="submit" pt="1" w="100%" isLoading={loading}>{label}</Button>
                             </VStack>

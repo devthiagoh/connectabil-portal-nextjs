@@ -1,11 +1,8 @@
 import { Badge, Box, Button, Center, Divider, Flex, Grid, GridItem, SimpleGrid, Spinner, Switch, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { useJobs } from "../context/jobs.context";
-import api from "../services/api";
 import { ModalJobForm } from "./modals/job";
-
-
+import api from "../services/api";
 
 export const TabJobsForm = ({}) => {
     
@@ -22,7 +19,8 @@ export const TabJobsForm = ({}) => {
         setName,
         setDescription,
         setType,
-        setCompanies
+        setCompanies,
+        isStatus
     } = useJobs();
 
     const _create = async () => {
@@ -68,8 +66,8 @@ export const TabJobsForm = ({}) => {
         try {
             e.preventDefault();
             let active = e.target.checked;
-            await api.put('/job', {_id: job._id, status: active});
-            setJobs(jobs.map(item => item._id === job._id ? {_id: job._id, name: job.name, description: job.description, type: job.type, city: job.city, companies: job.companies, status: active} : item));
+            const { data } = await api.put('/job', {_id: job._id, status: active});
+            setJobs(jobs.map(item => item._id === job._id ? data.job : item));
             clear();
             toast({
                 title: "Vaga atualizada com sucesso!",
@@ -95,6 +93,7 @@ export const TabJobsForm = ({}) => {
         setDescription(job.description);
         setType(job.type);
         setCompanies(job.companies);
+        isStatus(job.status);
     };
 
     const clear = () => {
@@ -105,12 +104,6 @@ export const TabJobsForm = ({}) => {
         setType('');
         setCompanies([]);
     };
-
-    // useEffect(() => {
-    //     api.get('/jobs').then(({ data }) => {
-    //         setJobs(data);
-    //     });
-    // }, []);
 
     return (
         <>

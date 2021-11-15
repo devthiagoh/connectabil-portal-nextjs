@@ -23,7 +23,8 @@ export const TabCompaniesForm = ({}) => {
         setCity,
         setNeighborhood,
         setAddress,
-        setNumber
+        setNumber,
+        isStatus
     } = useCompanies();
 
     const _create = async () => {
@@ -43,7 +44,7 @@ export const TabCompaniesForm = ({}) => {
     const _delete = async (_id) => { 
         
         try {
-            await api.delete(`/company/${_id}`);
+            await api.delete(`/companies/${_id}`);
             setCompanies(companies.filter(company => company._id !== _id));
             toast({
                 title: "Empresa excluída com sucesso!",
@@ -69,8 +70,9 @@ export const TabCompaniesForm = ({}) => {
         try {
             e.preventDefault();
             let active = e.target.checked;
-            await api.put('/company', {_id: company._id, status: active});
-            setCompanies(companies.map(item => item._id === company._id ? {_id: company._id, name: company.name, zipCode: company.zipCode, state: company.state, city: company.city, neighborhood: company.neighborhood, address: company.address, number: company.number, status: active} : item));
+            const update = {_id: company._id, status: active};
+            const { data } = await api.put('/companies', update);
+            setCompanies(companies.map(item => item._id === company._id ? data : item));
             clear();
             toast({
                 title: "Empresa atualizada com sucesso!",
@@ -99,6 +101,7 @@ export const TabCompaniesForm = ({}) => {
         setNeighborhood(company.neighborhood);
         setAddress(company.address);
         setNumber(company.number);
+        isStatus(company.status);
     };
 
     const clear = () => {
@@ -112,12 +115,6 @@ export const TabCompaniesForm = ({}) => {
         setAddress('');
         setNumber('');
     };
-
-    // useEffect(() => {
-    //     api.get('/companies').then(({ data }) => {
-    //         setCompanies(data);
-    //     });
-    // }, []);  
 
     return (
         <>

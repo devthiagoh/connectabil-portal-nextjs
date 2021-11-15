@@ -1,30 +1,28 @@
 
-import { FormControl, FormErrorMessage } from '@chakra-ui/form-control';
+import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import React, { useEffect, useState } from "react";
 import Select, { OnChangeValue } from 'react-select';
 import { useJobs } from '../context/jobs.context';
 import api from "../services/api";
 
+export const MultiSelect = ({job, name, error }) => {
 
-export const MultiSelect = ({job, name, error = null}) => {
-
-    const { companies, setCompanies } = useJobs();
+    const { setCompanies } = useJobs();
     const [ options, setOptions ] = useState([]);
     const selectedCompanies = [];
     
     useEffect(() => {
-        api.get('/companies').then(({ data }) => {
-            const options = [];
-
-            data.map(company => {
-                options.push({ value: company._id, label: company.name });
-            });
-            
-            setOptions(options);
-        });
 
         job?.companies?.map(company => {
             selectedCompanies.push({ value: company._id, label: company.name });
+        });
+
+        api.get('/companies').then(({ data }) => {
+            const options = [];
+            data.map(company => {
+                options.push({ value: company._id, label: company.name });
+            });            
+            setOptions(options);
         });
 
     }, []);
@@ -38,7 +36,7 @@ export const MultiSelect = ({job, name, error = null}) => {
     };
 
     return ( 
-        <FormControl marginY="1rem" w="100%" borderRadius="xl" isInvalid={!!error}>
+        <FormControl marginY="1rem" w="100%" borderRadius="xl" isInvalid={!!error} isRequired={true}>
             <Select
                 isMulti
                 name={name}
@@ -48,6 +46,7 @@ export const MultiSelect = ({job, name, error = null}) => {
                 placeholder='Associar a uma empresa'
                 onChange={onChange}
                 defaultValue={selectedCompanies}
+                
             />
             {!!error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
