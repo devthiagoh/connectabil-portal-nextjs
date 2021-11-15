@@ -33,13 +33,13 @@ export default function Register(){
     const [ erros, setErros ] = useState(null);
     const [ loading, isLoading ] = useState(false);
 
-    const handleChangeName = (value) => { setName(value) };
-    const handleChangeCep = (value) => { setZipCode(value) };
-    const handleChangeEstado = (value) => { setState(value) };
-    const handleChangeCidade = (value) => { setCity(value) };
-    const handleChangeBairro = (value) => { setNeighborhood(value) };
-    const handleChangeLogradouro = (value) => { setAddress(value) };
-    const handleChangeNumero = (value) => { setNumber(value) };
+    const handleChangeName = (value) => { setName(value); setErros(null) };
+    const handleChangeCep = (value) => { setZipCode(value); setErros(null) };
+    const handleChangeEstado = (value) => { setState(value); setErros(null) };
+    const handleChangeCidade = (value) => { setCity(value); setErros(null) };
+    const handleChangeBairro = (value) => { setNeighborhood(value); setErros(null) };
+    const handleChangeLogradouro = (value) => { setAddress(value); setErros(null) };
+    const handleChangeNumero = (value) => { setNumber(value); setErros(null) };
 
     const isValidForm = () => {
 
