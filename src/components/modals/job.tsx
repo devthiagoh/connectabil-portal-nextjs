@@ -37,25 +37,13 @@ export const ModalJobForm = ({isOpen, onClose}) => {
 
     const isValidForm = () => {
 
-        if(!name) {
-            setErros({name: 'Nome é obrigatório.'});
-            return false;
-        }
+        if(!name) { setErros({name: 'Nome é obrigatório.'}); return false; }
 
-        if(!description){
-            setErros({description: 'Descrição é obrigatório.'});
-            return false;
-        }
+        if(!description){ setErros({description: 'Descrição é obrigatório.'}); return false; }
 
-        if(!type){
-            setErros({type: 'Tipo de Contratação é obrigatório.'});
-            return false;
-        }
+        if(!type){ setErros({type: 'Tipo de Contratação é obrigatório.'}); return false; }
 
-        if(!companies){
-            setErros({companies: 'Associar uma empresa é obrigatório.'});
-            return false;
-        }
+        if(!companies){ setErros({companies: 'Associar uma empresa é obrigatório.'}); return false; }
 
         setErros(null);
         return true;

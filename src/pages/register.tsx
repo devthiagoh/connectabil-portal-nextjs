@@ -43,40 +43,19 @@ export default function Register(){
 
     const isValidForm = () => {
 
-        if(!name) {
-            setErros({ name: 'Nome é obrigatório.' });
-            return false;
-        }
+        if(!name) { setErros({ name: 'Nome é obrigatório.' }); return false; }
 
-        if(!zipCode){
-            setErros({ zipCode: 'Cep é obrigatório.' });
-            return false;
-        }
+        if(!zipCode){ setErros({ zipCode: 'Cep é obrigatório.' }); return false; }
 
-        if(!state){
-            setErros({ state: 'Estado é obrigatório.' });
-            return false;
-        }
+        if(!state){ setErros({ state: 'Estado é obrigatório.' });return false; }
 
-        if(!city){
-            setErros({ city: 'Cidade é obrigatório.'});
-            return false;
-        }
+        if(!city){setErros({ city: 'Cidade é obrigatório.' });return false; }
 
-        if(!neighborhood){
-            setErros({ neighborhood: 'Bairro é obrigatório.' });
-            return false;
-        }
+        if(!neighborhood){ setErros({ neighborhood: 'Bairro é obrigatório.' }); return false; }
 
-        if(!address){
-            setErros({ address: 'Logradourro é obrigatório.' });
-            return false;
-        }
+        if(!address){ setErros({ address: 'Logradourro é obrigatório.' }); return false; }
 
-        if(!number){
-            setErros({ number: 'Número é obrigatório.' });
-            return false;
-        }
+        if(!number){ setErros({ number: 'Número é obrigatório.' }); return false; }
 
         setErros(null);
         return true;
