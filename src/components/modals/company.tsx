@@ -173,15 +173,15 @@ export const ModalCompanyForm = ({isOpen, onClose}) => {
 
                                 <Text fontSize="32px" fontWeight="bold" alignSelf="flex-start" letterSpacing="1.2px" mb="2">{label}</Text><ModalCloseButton/>
 
-                                <InputForm name="name"   label="Nome Fantasia" placeholder="Qual o nome fantasia da sua empresa?" value={name}   onChange={e => handleChangeName(e.target.value)}   error={erros?.name}></InputForm>
-                                <InputForm name="cep"    label="CEP"           placeholder="Qual o CEP da sua empresa?"           value={zipCode}    onChange={e => handleChangeCep(e.target.value)}    error={erros?.zipCode}></InputForm>
-                                <InputForm name="estado" label="Estado"        placeholder="Qual o estado?"                       value={state} onChange={e => handleChangeEstado(e.target.value)} error={erros?.state}></InputForm>
-                                <InputForm name="cidade" label="Cidade"        placeholder="Qual a cidade?"                       value={city} onChange={e => handleChangeCidade(e.target.value)} error={erros?.city}></InputForm>
-                                <InputForm name="bairro" label="Bairro"        placeholder="Qual a bairro?"                       value={neighborhood} onChange={e => handleChangeBairro(e.target.value)} error={erros?.neighborhood}></InputForm>
+                                <InputForm name="name"   label="Nome Fantasia" placeholder="Qual o nome fantasia da sua empresa?" value={name}          onChange={e => handleChangeName(e.target.value)}   mask="" error={erros?.name}></InputForm>
+                                <InputForm name="cep"    label="CEP"           placeholder="Qual o CEP da sua empresa?"           value={zipCode}       onChange={e => handleChangeCep(e.target.value)}    mask="99999-999" error={erros?.zipCode}></InputForm>
+                                <InputForm name="estado" label="Estado"        placeholder="Qual o estado?"                       value={state}         onChange={e => handleChangeEstado(e.target.value)} mask="aa" error={erros?.state}></InputForm>
+                                <InputForm name="cidade" label="Cidade"        placeholder="Qual a cidade?"                       value={city}          onChange={e => handleChangeCidade(e.target.value)} mask="" error={erros?.city}></InputForm>
+                                <InputForm name="bairro" label="Bairro"        placeholder="Qual a bairro?"                       value={neighborhood}  onChange={e => handleChangeBairro(e.target.value)} mask="" error={erros?.neighborhood}></InputForm>
 
                                 <Flex justifyContent="space-between">
-                                    <InputForm name="logradouro" label="Logradouro" placeholder="Qual o logradouro?" value={address} onChange={e => handleChangeLogradouro(e.target.value)} error={erros?.address}></InputForm>
-                                    <InputForm name="numero" label="Número"         placeholder="Nº"                 value={number} onChange={e => handleChangeNumero(e.target.value)} w="95%" ml="2" error={erros?.number}></InputForm>
+                                    <InputForm name="logradouro" label="Logradouro" placeholder="Qual o logradouro?" value={address} onChange={e => handleChangeLogradouro(e.target.value)} error={erros?.address}mask=""></InputForm>
+                                    <InputForm name="numero"     label="Número"     placeholder="Nº"                 value={number}  onChange={e => handleChangeNumero(e.target.value)}     error={erros?.number} mask="" w="95%" ml="2" ></InputForm>
                                 </Flex>
 
                                 <Button type="submit" pt="1" w="100%" isLoading={loading}>{label}</Button>

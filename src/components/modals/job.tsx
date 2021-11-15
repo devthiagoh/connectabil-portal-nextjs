@@ -138,12 +138,10 @@ export const ModalJobForm = ({isOpen, onClose}) => {
 
                                 <Text fontSize="32px" fontWeight="bold" alignSelf="flex-start" letterSpacing="1.2px" mb="2">{label}</Text><ModalCloseButton/>
 
-                                <InputForm name="name" label="Nome da Vaga" placeholder="Qual o nome da sua vaga?" value={name} onChange={e => handleChangeName(e.target.value)} error={erros?.name}></InputForm>
-                                <TextAreaForm name="descricao" label="Descrição da Vaga" placeholder="Descreva brevemente a vaga" value={description} onChange={e => handleChangeDescription(e.target.value)} error={erros?.description}></TextAreaForm>
-
-                                <RadioForm name="type" label="Tipo de contratação" error={erros?.type}></RadioForm>
-
-                                <MultiSelect name="companies" job={job} error={erros?.companies}></MultiSelect>
+                                <InputForm    name="name"      label="Nome da Vaga"         placeholder="Qual o nome da sua vaga?"   value={name}        onChange={e => handleChangeName(e.target.value)}        error={erros?.name} mask=""></InputForm>
+                                <TextAreaForm name="descricao" label="Descrição da Vaga"    placeholder="Descreva brevemente a vaga" value={description} onChange={e => handleChangeDescription(e.target.value)} error={erros?.description}></TextAreaForm>
+                                <RadioForm    name="type"      label="Tipo de contratação"  error={erros?.type}></RadioForm>
+                                <MultiSelect  name="companies" job={job}                    error={erros?.companies}></MultiSelect>
 
                                 <Button type="submit" pt="1" w="100%" isLoading={loading}>{label}</Button>
                             </VStack>
