@@ -13,8 +13,8 @@ export default function LoginForm(){
 
                         <Text fontSize="32px" fontWeight="bold" alignSelf="flex-start" letterSpacing="1.2px">Seja bem vindo(a)</Text>
 
-                        <InputForm type="email" name="email" label="Digite seu melhor e-mail" placeholder="seumelhoremail@email.com" onChange={e => console.log(e.target.value)}></InputForm>
-                        <InputForm type="password" name="password" label="Digite sua senha favorita" placeholder="*************" onChange={e => console.log(e.target.value)} mb="4" ></InputForm>
+                        <InputForm type="email" name="email" label="Digite seu melhor e-mail" placeholder="seumelhoremail@email.com" onChange={e => console.log(e.target.value)} mask=""></InputForm>
+                        <InputForm type="password" name="password" label="Digite sua senha favorita" placeholder="*************" onChange={e => console.log(e.target.value)} mb="4" mask=""></InputForm>
 
                         <Button pt="1" w="100%" onClick={() => router.push('/dashboard')}>Entrar</Button>
                     </VStack>
