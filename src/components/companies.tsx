@@ -1,5 +1,4 @@
-import { Box, Button, Center, Divider, Flex, Grid, GridItem, SimpleGrid, Switch, Text, Spinner } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Box, Button, Center, Divider, Flex, Grid, GridItem, SimpleGrid, Spinner, Switch, Text } from "@chakra-ui/react";
 import { FaMapMarkerAlt, FaPen, FaTrash } from 'react-icons/fa';
 import { useCompanies } from "../context/companies.context";
 import api from "../services/api";
@@ -120,7 +119,7 @@ export const TabCompaniesForm = ({}) => {
         <>
             <Flex color="white" justifyContent="flex-end" mt="2">
                 <Button color="white" bgColor="blue.550" size="sm" pt="1" onClick={() => {_create()}}>Criar Empresa</Button>
-                <ModalCompanyForm isOpen={isOpen} onClose={onClose} ></ModalCompanyForm>
+                <ModalCompanyForm isOpen={isOpen} onClose={onClose}></ModalCompanyForm>
             </Flex>
 
             <Divider mt="1" borderColor="gray.400"/>

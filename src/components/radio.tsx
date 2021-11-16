@@ -5,8 +5,8 @@ import { useJobs } from "../context/jobs.context";
 
 export const RadioForm = ({label, name, error = null}) => {
     
-    const { type, setType, setErros } = useJobs();
-    const handleChangeType = (value) => { setType(value); setErros(null) };
+    const { type, setType, setError } = useJobs();
+    const handleChangeType = (value) => { setType(value); setError(null) };
 
     return (
         <FormControl marginY="1rem" isInvalid={!!error}>

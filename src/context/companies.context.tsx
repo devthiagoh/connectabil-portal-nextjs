@@ -1,7 +1,6 @@
-import { createContext, useContext, ReactNode, useState, useEffect } from "react";
-import { useToast } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-
+import { useToast } from "@chakra-ui/react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import api from "../services/api";
 
 type ContextType = {
@@ -9,6 +8,10 @@ type ContextType = {
   isOpen: any;
   onOpen: any;
   onClose: any;
+  loading: boolean;
+  isLoading: any;
+  error: any;
+  setError: any;
   label: string;
   setLabel: any;
   companies: any;
@@ -40,6 +43,10 @@ const defaultValues: ContextType = {
   isOpen: null,
   onOpen: null,
   onClose: null,
+  loading: null,
+  isLoading: () => {},
+  error: null,
+  setError: () => {},
   label: null,
   setLabel: () => {},
   companies: null,
@@ -80,6 +87,8 @@ export function CompaniesProvider({ children }: Props) {
     
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [ loading, isLoading ] = useState(false);
+  const [ error, setError ] = useState(null);
 
   const [ label, setLabel ] = useState(null);
   const [ companies, setCompanies ] = useState(null);
@@ -99,6 +108,10 @@ export function CompaniesProvider({ children }: Props) {
     isOpen,
     onOpen,
     onClose,
+    loading,
+    isLoading,
+    error,
+    setError,
     companies,
     setCompanies,
     label,

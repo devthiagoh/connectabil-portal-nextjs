@@ -40,7 +40,7 @@ export const TabJobsForm = ({}) => {
     const _delete = async (_id) => { 
         
         try {
-            await api.delete(`/job/${_id}`);
+            await api.delete(`/jobs/${_id}`);
             setJobs(jobs.filter(job => job._id !== _id));
             toast({
                 title: "Vaga excluída com sucesso!",
@@ -66,8 +66,8 @@ export const TabJobsForm = ({}) => {
         try {
             e.preventDefault();
             let active = e.target.checked;
-            const { data } = await api.put('/job', {_id: job._id, status: active});
-            setJobs(jobs.map(item => item._id === job._id ? data.job : item));
+            const { data } = await api.put('/jobs', {_id: job._id, status: active});
+            setJobs(jobs.map(item => item._id === job._id ? data : item));
             clear();
             toast({
                 title: "Vaga atualizada com sucesso!",

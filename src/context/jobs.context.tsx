@@ -1,7 +1,6 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-
 import api from "../services/api";
 
 type ContextType = {
@@ -9,8 +8,10 @@ type ContextType = {
   isOpen: any;
   onOpen: any;
   onClose: any;
-  erros: any;
-  setErros: any;
+  loading: boolean;
+  isLoading: any;
+  error: any;
+  setError: any;
   label: string;
   setLabel: any;
   jobs: any;
@@ -36,8 +37,10 @@ const defaultValues: ContextType = {
   isOpen: null,
   onOpen: null,
   onClose: null,
-  erros: null, 
-  setErros: () => {},
+  loading: null,
+  isLoading: () => {},
+  error: null, 
+  setError: () => {},
   label: null,
   setLabel: () => {},
   jobs: null,
@@ -72,7 +75,8 @@ export function JobsProvider({ children }: Props) {
     
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [ erros, setErros ] = useState(null);
+  const [ loading, isLoading ] = useState(false);
+  const [ error, setError ] = useState(null);
 
   const [ label, setLabel ] = useState(null);
   const [ jobs, setJobs ] = useState(null);
@@ -89,8 +93,10 @@ export function JobsProvider({ children }: Props) {
     isOpen,
     onOpen,
     onClose,
-    erros,
-    setErros,
+    loading,
+    isLoading,
+    error,
+    setError,
     label,
     setLabel,
     jobs,
