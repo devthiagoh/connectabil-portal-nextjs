@@ -2,7 +2,8 @@ import { Box, Button, Center, Flex, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import { InputForm } from "../components/input";
 import { useCompanies } from "../context/companies.context";
-import api from "../services/api";
+import { service } from "../services/companies.service";
+import { Method } from "../util/util";
 
 export default function Register(){
 
@@ -72,8 +73,9 @@ export default function Register(){
         try {
             isLoading(true);
             const create = {name, zipCode, state, city, neighborhood, address, number, status: true};
-            const { data } = await api.post('/companies', create);
-            setCompanies(companies.concat(data));  
+            const created = await service(Method.CREATE, create);
+            const companiesUpdated = companies.concat(created);
+            setCompanies(companiesUpdated);  
             clear();
             isLoading(false);
             toast({

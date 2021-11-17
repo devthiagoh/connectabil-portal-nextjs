@@ -1,7 +1,6 @@
-import { FormControl, FormLabel, FormErrorMessage, Radio, RadioGroup, Stack } from "@chakra-ui/react";
-
-import { useState } from "react";
+import { FormControl, FormErrorMessage, FormLabel, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useJobs } from "../context/jobs.context";
+
 
 export const RadioForm = ({label, name, error = null}) => {
     

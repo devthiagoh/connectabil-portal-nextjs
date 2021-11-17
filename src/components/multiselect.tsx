@@ -3,7 +3,8 @@ import { FormControl, FormErrorMessage } from '@chakra-ui/react';
 import React, { useEffect, useState } from "react";
 import Select, { OnChangeValue } from 'react-select';
 import { useJobs } from '../context/jobs.context';
-import api from "../services/api";
+import { service } from "../services/companies.service";
+import { Method } from "../util/util";
 
 export const MultiSelect = ({job, name, error }) => {
 
@@ -17,7 +18,7 @@ export const MultiSelect = ({job, name, error }) => {
             selectedCompanies.push({ value: company._id, label: company.name });
         });
 
-        api.get('/companies').then(({ data }) => {
+        service(Method.FINDALL).then(({ data }) => {
             const options = [];
             data.map(company => {
                 options.push({ value: company._id, label: company.name });

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from 'next/router';
 
 export default function Home() {
-  const [ loading, isLoading ] = useState(false);
+  const [ loading ] = useState(false);
   const router = useRouter();
 
   return (
