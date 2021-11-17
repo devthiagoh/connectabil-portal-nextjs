@@ -30,7 +30,6 @@ async function _create(path: string, create: any): Promise<any>{
 
 async function _update(path: string, update: any): Promise<any>{
     const updated = await defaultService(Method.UPDATE, path, update);
-    console.log(updated);
     return updated;
 }
 
