@@ -18,7 +18,7 @@ export const MultiSelect = ({job, name, error }) => {
             selectedCompanies.push({ value: company._id, label: company.name });
         });
 
-        service(Method.FINDALL).then(({ data }) => {
+        service(Method.FINDALL).then(( data ) => {
             const options = [];
             data.map(company => {
                 options.push({ value: company._id, label: company.name });
