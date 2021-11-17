@@ -2,7 +2,8 @@ import { Badge, Box, Button, Center, Divider, Flex, Grid, GridItem, SimpleGrid, 
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { useJobs } from "../context/jobs.context";
 import { ModalJobForm } from "./modals/job";
-import api from "../services/api";
+import { Method } from "../util/util";
+import { service } from "../services/jobs.service";
 
 export const TabJobsForm = ({}) => {
     
@@ -40,8 +41,9 @@ export const TabJobsForm = ({}) => {
     const _delete = async (_id) => { 
         
         try {
-            await api.delete(`/jobs/${_id}`);
-            setJobs(jobs.filter(job => job._id !== _id));
+            await service(Method.DELETE, _id);
+            const jobsUpdated = jobs.filter(job => job._id !== _id);
+            setJobs(jobsUpdated);
             toast({
                 title: "Vaga excluída com sucesso!",
                 status: "success",
@@ -66,8 +68,10 @@ export const TabJobsForm = ({}) => {
         try {
             e.preventDefault();
             let active = e.target.checked;
-            const { data } = await api.put('/jobs', {_id: job._id, status: active});
-            setJobs(jobs.map(item => item._id === job._id ? data : item));
+            const update = {_id: job._id, status: active};
+            const updated = await service(Method.UPDATE, update);
+            const jobsUpdated = jobs.map(item => item._id === job._id ? updated : item);
+            setJobs(jobsUpdated);
             clear();
             toast({
                 title: "Vaga atualizada com sucesso!",

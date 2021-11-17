@@ -1,11 +1,12 @@
 import { Box, Button, Center, Divider, Flex, Grid, GridItem, SimpleGrid, Spinner, Switch, Text } from "@chakra-ui/react";
 import { FaMapMarkerAlt, FaPen, FaTrash } from 'react-icons/fa';
 import { useCompanies } from "../context/companies.context";
-import api from "../services/api";
 import { ModalCompanyForm } from "./modals/company";
+import { Method } from "../util/util";
+import { service } from "../services/companies.service";
 
 export const TabCompaniesForm = ({}) => {
-    
+
     const {
         toast,
         isOpen,
@@ -40,10 +41,10 @@ export const TabCompaniesForm = ({}) => {
         onOpen();
     };
 
-    const _delete = async (_id) => { 
+    const handleDelete = async (_id) => { 
         
         try {
-            await api.delete(`/companies/${_id}`);
+            await service(Method.DELETE, _id);
             setCompanies(companies.filter(company => company._id !== _id));
             toast({
                 title: "Empresa excluída com sucesso!",
@@ -70,8 +71,8 @@ export const TabCompaniesForm = ({}) => {
             e.preventDefault();
             let active = e.target.checked;
             const update = {_id: company._id, status: active};
-            const { data } = await api.put('/companies', update);
-            setCompanies(companies.map(item => item._id === company._id ? data : item));
+            const updated = await service(Method.UPDATE, update);
+            setCompanies(companies.map(item => item._id === company._id ? updated : item));
             clear();
             toast({
                 title: "Empresa atualizada com sucesso!",
@@ -149,7 +150,7 @@ export const TabCompaniesForm = ({}) => {
                                             <Button onClick={() => _edit(company)} w="80px" size="sm" mr="2">
                                                 <FaPen/><Text ml="1" pt="1">Editar</Text>
                                             </Button>
-                                            <Button onClick={() => _delete(company._id)} w="85px" size="sm" mr="2">
+                                            <Button onClick={() => handleDelete(company._id)} w="85px" size="sm" mr="2">
                                                 <FaTrash/><Text ml="1" pt="1">Excluir</Text>
                                             </Button>
                                             <Switch size="lg" mt="1" mr="2" value={company.status} isChecked={company.status} onChange={(e) => switchChange(e, company)}/>

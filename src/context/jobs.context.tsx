@@ -1,7 +1,8 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-import api from "../services/api";
+import { service } from "../services/jobs.service";
+import { Method } from "../util/util";
 
 type ContextType = {
   toast: any;
@@ -43,7 +44,7 @@ const defaultValues: ContextType = {
   setError: () => {},
   label: null,
   setLabel: () => {},
-  jobs: null,
+  jobs: [],
   setJobs: () => {},
   job: null,
   setJob: () => {},
@@ -118,7 +119,7 @@ export function JobsProvider({ children }: Props) {
   };
 
   useEffect(() => {
-    api.get('/jobs').then(({ data }) => {
+    service(Method.FINDALL).then(( data ) => {
       setJobs(data);
     });
   }, []);

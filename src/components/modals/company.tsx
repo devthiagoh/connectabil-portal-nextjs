@@ -1,8 +1,10 @@
 import { Button, Center, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Text, VStack } from "@chakra-ui/react";
+import { InputForm } from "../input";
 import { useCompanies } from "../../context/companies.context";
 import { useJobs } from "../../context/jobs.context";
-import api from "../../services/api";
-import { InputForm } from "../input";
+import { Method } from "../../util/util";
+import { defaultService } from "../../services/default.service";
+import { service } from "../../services/companies.service";
 
 export const ModalCompanyForm = ({isOpen, onClose}) => {
 
@@ -75,8 +77,9 @@ export const ModalCompanyForm = ({isOpen, onClose}) => {
         try {
             isLoading(true);
             let create = {name, zipCode, state, city, neighborhood, address, number, status: true};
-            const { data } = await api.post('/companies', create);
-            setCompanies(companies.concat(data));  
+            const created = await service(Method.CREATE, create);
+            const companiesUpdated = companies.concat(created);
+            setCompanies(companiesUpdated);  
             clear();
             isLoading(false);
             toast({
@@ -110,8 +113,9 @@ export const ModalCompanyForm = ({isOpen, onClose}) => {
         try {
             isLoading(true);
             const update = {_id: id, name, zipCode, state, city, neighborhood, address, number, status};
-            const { data } = await api.put(`/companies`, update);
-            setCompanies(companies.map(company => company._id === id ? data : company));
+            const updated = await service(Method.UPDATE, update);
+            const companiesUpdated = companies.map(company => company._id === id ? updated : company);
+            setCompanies(companiesUpdated);
             clear();
             updateJobs();
             isLoading(false);
@@ -146,10 +150,9 @@ export const ModalCompanyForm = ({isOpen, onClose}) => {
         setNumber('');
     };
 
-    const updateJobs = () => {
-        api.get('/jobs').then(({ data }) => {
+    const updateJobs = async () => {
+        await defaultService(Method.FINDALL, 'jobs').then(( data ) => {
             setJobs(data);
-            console.log('atualizando...');
         });
     }
 

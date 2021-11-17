@@ -4,7 +4,8 @@ import { InputForm } from "../input";
 import { MultiSelect } from "../multiselect";
 import { RadioForm } from "../radio";
 import { TextAreaForm } from "../textarea";
-import api from "../../services/api";
+import { Method } from "../../util/util";
+import { service } from "../../services/jobs.service";
 
 export const ModalJobForm = ({isOpen, onClose}) => {
 
@@ -57,8 +58,9 @@ export const ModalJobForm = ({isOpen, onClose}) => {
         try {
             isLoading(true);
             const create = {name, description, type, companies, status: true};
-            const { data } = await api.post('/jobs', create);
-            setJobs(jobs.concat(data));  
+            const created = await service(Method.CREATE, create);
+            const jobsUpdated = jobs.concat(created); 
+            setJobs(jobsUpdated);  
             clear();
             isLoading(false);
             toast({
@@ -92,8 +94,9 @@ export const ModalJobForm = ({isOpen, onClose}) => {
         try {
             isLoading(true);
             const update = {_id: id, name, description, type, companies, status};
-            const { data } = await api.put(`/jobs`, update);
-            setJobs(jobs.map(job => job._id === id ? data : job));
+            const updated = await service(Method.UPDATE, update);
+            const jobsUpdated = jobs.map(job => job._id === id ? updated : job);
+            setJobs(jobsUpdated);
             clear();
             isLoading(false);
             toast({

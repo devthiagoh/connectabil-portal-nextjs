@@ -1,7 +1,8 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useToast } from "@chakra-ui/react";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import api from "../services/api";
+import { service } from "../services/companies.service";
+import { Method } from "../util/util";
 
 type ContextType = {
   toast: any;
@@ -49,7 +50,7 @@ const defaultValues: ContextType = {
   setError: () => {},
   label: null,
   setLabel: () => {},
-  companies: null,
+  companies: [],
   setCompanies: () => {},
   company: null,
   setCompany: () => {},
@@ -139,7 +140,7 @@ export function CompaniesProvider({ children }: Props) {
   };
 
   useEffect(() => {
-    api.get('/companies').then(({ data }) => {
+    service(Method.FINDALL).then(( data ) => {
       setCompanies(data);
     });
   }, []);
