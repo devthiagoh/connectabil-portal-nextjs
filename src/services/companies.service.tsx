@@ -5,18 +5,15 @@ export async function service(method: Method, obj: any = null): Promise<any>{
 
     const path = 'companies';
 
-    switch (method) {
-        case Method.FINDALL:
-            return _findAll(path);
-        case Method.CREATE:
-            return _create(path, obj);
-        case Method.UPDATE:
-            return _update(path, obj);
-        case Method.DELETE:
-            return _delete(path, obj);
-        default:
-            break;
-    }
+    let switchcase = {
+
+        FINDALL (obj){ return _findAll(path) },
+        CREATE  (obj){ return _create(path, obj) },
+        UPDATE  (obj){ return _update(path, obj) },
+        DELETE  (obj){ return _delete(path, obj) }
+    };
+
+    return switchcase[method](obj);
 }
 
 async function _findAll(path: string){

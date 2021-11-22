@@ -1,6 +1,6 @@
 export enum Method {
-    FINDALL,
-    CREATE,
-    UPDATE,
-    DELETE
+    FINDALL = 'FINDALL',
+    CREATE = 'CREATE',
+    UPDATE = 'UPDATE',
+    DELETE = 'DELETE'
 }
